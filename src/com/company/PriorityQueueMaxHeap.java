@@ -93,8 +93,15 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         }
     }
 
-    private void buildMaxHeap() {
+    public void heapSort() {
 
+        for (int i = heapsize; i >= 1; i--) {
+            Collections.swap(a, 0, i);
+            heapsize--;
+            maxHeapify(0);
+        }
+
+        System.out.println(a);
 
     }
 }
