@@ -15,7 +15,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         a = new ArrayList<>(Arrays.asList(cRay));
         heapsize = cRay.length - 1;
 
-        for (int i = heapsize - 1 >> 1; i >= 0; i--) {
+        for (int i = heapsize>> 1; i >= 0; i--) {
             maxHeapify(i);
         }
 
