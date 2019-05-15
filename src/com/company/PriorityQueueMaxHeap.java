@@ -3,6 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class PriorityQueueMaxHeap implements PriorityQueue {
 
@@ -15,11 +16,24 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         a = new ArrayList<>(Arrays.asList(cRay));
         heapsize = cRay.length - 1;
 
-        for (int i = heapsize>> 1; i >= 0; i--) {
+        System.out.println("Initial Heap (unoptimized)");
+        createTreeStrings(0, a).forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+
+        for (int i = heapsize >> 1; i >= 0; i--) {
             maxHeapify(i);
+
+
         }
 
-        System.out.println(a);
+        System.out.println("Heapified");
+        createTreeStrings(0, a).forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
     private void increaseKey(int i, Comparable elem) {
@@ -40,7 +54,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
 
     private void maxHeapify(int i) {
 
-        int l = 2 * i;
+        int l = (2 * i) + 1;
         int r = l + 1;
 
         int max = (l <= heapsize && a.get(l).compareTo(a.get(i)) > 0)
@@ -63,6 +77,13 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         heapsize++;
         a.add(Integer.MIN_VALUE); // Sentinel ergänzen
         increaseKey(heapsize, elem);
+
+        System.out.println("Added Element");
+        createTreeStrings(0, a).forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
     }
 
     @Override
@@ -80,7 +101,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
 
             Comparable max = a.get(0);
             a.set(0, a.get(heapsize));
-
+            a.remove(heapsize);
             heapsize--;
 
             maxHeapify(0);
@@ -91,6 +112,14 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+
+        System.out.println("After Deletion");
+        createTreeStrings(0, a).forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
     }
 
     public void heapSort() {
@@ -104,4 +133,68 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         System.out.println(a);
 
     }
+
+
+    static String pad(String s, int lengthRigth, int length) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = length - lengthRigth - s.length(); i > 0; i--) {
+            sb.append(' ');
+        }
+
+        sb.append(s);
+
+        for (int i = 0; i < lengthRigth; i++) {
+            sb.append(' ');
+        }
+
+        return sb.toString();
+    }
+
+    static StringBuilder withSpacesAppended(String s, int spaceCount) {
+        StringBuilder sb = new StringBuilder(s.length() + spaceCount).append(s);
+        for (int i = 0; i < spaceCount; i++) {
+            sb.append(' ');
+        }
+        return sb;
+    }
+
+    static void joinLists(List<String> list1, List<String> list2) {
+        int i;
+        final int size = list2.size();
+        for (i = 0; i < size; i++) {
+            list1.set(i, withSpacesAppended(list1.get(i), 2).append(list2.get(i)).toString());
+        }
+    }
+
+    static List<String> createTreeStrings(int index, ArrayList<Comparable> array) {
+        int child1 = 2 * index + 1;
+        int child2 = 2 * index + 2;
+        if (child1 >= array.size()) {
+            return new ArrayList<>(Collections.singletonList(toText(index, array)));
+        } else {
+            List<String> childList1 = createTreeStrings(child1, array);
+            if (child2 < array.size()) {
+                joinLists(childList1, createTreeStrings(child2, array));
+            }
+            String text = toText(index, array);
+            int currentLength = childList1.get(0).length();
+
+            if (currentLength >= text.length()) {
+                text = pad(text, (currentLength - text.length()) / 2, currentLength);
+            } else {
+                for (int i = 0, size = childList1.size(); i < size; i++) {
+                    childList1.set(i, pad(childList1.get(i), (currentLength - text.length()) / 2, currentLength));
+                }
+            }
+
+            childList1.add(0, text);
+            return childList1;
+        }
+    }
+
+    static String toText(int index, ArrayList<Comparable> array) {
+        return array.get(index).toString() + '(' + index + ')';
+    }
+
 }
