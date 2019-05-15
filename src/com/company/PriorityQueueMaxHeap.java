@@ -79,11 +79,11 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
             }
 
             Comparable max = a.get(0);
-            a.set(1, a.get(heapsize));
+            a.set(0, a.get(heapsize));
 
             heapsize--;
 
-            maxHeapify(1);
+            maxHeapify(0);
 
             getFirst();
 
