@@ -122,6 +122,21 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
 
     }
 
+    public void deleteSpecific(int i) {
+
+        a.set(i, a.get(heapsize));
+        a.remove(heapsize);
+        heapsize--;
+        maxHeapify(i);
+
+        System.out.println("After specific Deletion");
+        createTreeStrings(0, a).forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+    }
+
     public void heapSort() {
 
         for (int i = heapsize; i >= 1; i--) {
@@ -134,6 +149,9 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
 
     }
 
+    // ###############################################################################################
+    // Output
+    // ###############################################################################################
 
     static String pad(String s, int lengthRigth, int length) {
         StringBuilder sb = new StringBuilder();

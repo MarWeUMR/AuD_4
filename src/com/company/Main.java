@@ -18,6 +18,8 @@ public class Main {
         heap.addElement(1);
         heap.deleteFirst();
 
+        heap.deleteSpecific(3);
+
         System.out.println("First Element");
         System.out.println(heap.getFirst());
 
