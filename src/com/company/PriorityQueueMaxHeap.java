@@ -16,6 +16,8 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         a = new ArrayList<>(Arrays.asList(cRay));
         heapsize = cRay.length - 1;
 
+
+        // Printing
         System.out.println("Initial Heap (unoptimized)");
         createTreeStrings(0, a).forEach(System.out::println);
         System.out.println();
@@ -25,10 +27,10 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
 
         for (int i = heapsize >> 1; i >= 0; i--) {
             maxHeapify(i);
-
-
         }
 
+
+        // Printing
         System.out.println("Heapified");
         createTreeStrings(0, a).forEach(System.out::println);
         System.out.println();
@@ -41,11 +43,12 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         try {
             if (i > 1 & elem.compareTo(a.get(i)) < 0) throw new Exception("Error...somewhere. Try 42.");
 
+            // Setze das Element an Stelle i
             a.set(i, elem);
 
             while (heapsize > 1 && i > 0 && a.get(i >> 1).compareTo(a.get(i)) < 0) {
                 Collections.swap(a, i >> 1, i); // Elemente vertauschen
-                i = i >> 1;
+                i = i >> 1; // weiter bei root Element
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -57,6 +60,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         int l = (2 * i) + 1;
         int r = l + 1;
 
+        // selektiere max Element aus "heap-tripel"
         int max = (l <= heapsize && a.get(l).compareTo(a.get(i)) > 0)
                 ? l
                 : i;
@@ -65,6 +69,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
             max = r;
         }
 
+        // stelle heap eigenschaft wieder her
         if (max != i) {
             Collections.swap(a, i, max);
             maxHeapify(max);
@@ -78,6 +83,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         a.add(Integer.MIN_VALUE); // Sentinel ergänzen
         increaseKey(heapsize, elem);
 
+        // Printing
         System.out.println("Added Element");
         createTreeStrings(0, a).forEach(System.out::println);
         System.out.println();
@@ -114,6 +120,7 @@ public class PriorityQueueMaxHeap implements PriorityQueue {
         }
 
 
+        // printing
         System.out.println("After Deletion");
         createTreeStrings(0, a).forEach(System.out::println);
         System.out.println();

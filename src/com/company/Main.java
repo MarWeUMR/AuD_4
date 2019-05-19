@@ -9,7 +9,6 @@ public class Main {
 
 
         Integer[] arr = new Integer[]{0,21,4,2,12,80,20,7,3,60,1};
-        //Integer[] arr = new Integer[]{0,21,4};
         Character[] crr = new Character[]{'a', 'c', 'e', 'a', 'g', 'b'};
 
         PriorityQueueMaxHeap heap = new PriorityQueueMaxHeap(arr);
@@ -17,7 +16,6 @@ public class Main {
         heap.addElement(500);
         heap.addElement(1);
         heap.deleteFirst();
-
         heap.deleteSpecific(3);
 
         System.out.println("First Element");
